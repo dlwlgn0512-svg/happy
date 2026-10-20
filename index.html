@@ -11,47 +11,49 @@
     <!-- html2canvas 라이브러리 (이미지 캡처용) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { word-break: keep-all; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { word-break: keep-all; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f4f7f5; }
         input, select, button, textarea { font-size: 14px !important; }
+        /* 감성적인 초록 테마 커스텀 스크롤바 및 포커스 */
+        ::selection { background-color: #a3b899; color: #ffffff; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen pb-24">
+<body class="text-slate-700 flex flex-col min-h-screen pb-24">
 
-    <!-- 상단 헤더 -->
-    <header class="bg-indigo-600 text-white shadow sticky top-0 z-30">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-base sm:text-lg font-bold flex items-center gap-2 truncate">
-                <i class="fa-solid fa-people-group"></i> 기쁨 집단 관리 시스템
+    <!-- 상단 헤더 (싱그러운 포레스트/에메랄드 그린 톤) -->
+    <header class="bg-gradient-to-r from-emerald-700 to-teal-800 text-white shadow-md sticky top-0 z-30">
+        <div class="max-w-5xl mx-auto px-4 py-3.5 flex justify-between items-center">
+            <h1 class="text-base sm:text-lg font-bold flex items-center gap-2.5 truncate tracking-tight">
+                <i class="fa-solid fa-seedling text-emerald-300"></i> 기쁨 집단 관리 시스템
             </h1>
             <div class="flex items-center gap-2 sm:gap-3">
-                <span id="service-year-badge" class="text-[10px] sm:text-xs px-2 py-0.5 rounded bg-indigo-500 font-medium"></span>
-                <span id="cloud-status" class="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-indigo-800 text-indigo-200 flex items-center gap-1 shadow-inner">
-                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> 연결 중...
+                <span id="service-year-badge" class="text-[10px] sm:text-xs px-2.5 py-1 rounded-md bg-emerald-900/60 text-emerald-100 font-medium border border-emerald-600/40"></span>
+                <span id="cloud-status" class="text-[10px] sm:text-xs px-2.5 py-1 rounded-full bg-emerald-900/80 text-emerald-200 flex items-center gap-1.5 shadow-inner">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 연결 중...
                 </span>
             </div>
         </div>
     </header>
 
     <!-- 메인 컨텐츠 영역 -->
-    <main class="flex-1 max-w-5xl w-full mx-auto p-3 sm:p-4 mb-4">
+    <main class="flex-1 max-w-5xl w-full mx-auto p-3 sm:p-5 mb-4 space-y-4">
         
         <!-- 1. 기쁨집단 탭 -->
         <section id="tab-group" class="tab-content space-y-4">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-xl shadow-sm border border-slate-200 gap-3">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-emerald-900/10 gap-3">
                 <div>
-                    <h2 class="text-sm sm:text-base font-bold text-slate-700">기쁨 집단 성원 명단</h2>
+                    <h2 class="text-sm sm:text-base font-bold text-slate-800">기쁨 집단 성원 명단</h2>
                     <p class="text-xs text-slate-500">성원 구분, 임명 및 출판물 대표 여부를 관리합니다.</p>
                 </div>
-                <button onclick="openMemberModal()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded-lg font-medium transition flex items-center justify-center gap-1 shadow">
+                <button onclick="openMemberModal()" class="w-full sm:w-auto bg-emerald-700 hover:bg-emerald-800 text-white text-xs px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 shadow-sm">
                     <i class="fa-solid fa-user-plus"></i> 성원 추가
                 </button>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-sm border border-emerald-900/10 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs sm:text-sm whitespace-nowrap sm:whitespace-normal">
                         <thead>
-                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider">
+                            <tr class="bg-emerald-50/70 border-b border-emerald-100 text-emerald-900 font-semibold uppercase tracking-wider">
                                 <th class="p-3 text-center w-12">No</th>
                                 <th class="p-3 w-24">이름</th>
                                 <th class="p-3 w-20 text-center">구분</th>
@@ -61,7 +63,7 @@
                                 <th class="p-3 text-center w-24">관리</th>
                             </tr>
                         </thead>
-                        <tbody id="member-table-body" class="divide-y divide-slate-200">
+                        <tbody id="member-table-body" class="divide-y divide-slate-100">
                         </tbody>
                     </table>
                 </div>
@@ -70,35 +72,35 @@
 
         <!-- 2. 집회참석 탭 -->
         <section id="tab-attendance" class="tab-content space-y-4 hidden">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-emerald-900/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
                 <div>
-                    <h2 class="text-sm sm:text-base font-bold text-slate-700">집회 참석 체크</h2>
+                    <h2 class="text-sm sm:text-base font-bold text-slate-800">집회 참석 체크</h2>
                     <p class="text-xs text-slate-500">금요일 19:30, 일요일 13:00 회차별 참석 및 사유 관리</p>
                 </div>
                 <div class="flex items-center gap-2 w-full md:w-auto">
-                    <select id="attendance-session-select" onchange="changeAttendanceSession()" class="border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full md:w-auto">
+                    <select id="attendance-session-select" onchange="changeAttendanceSession()" class="border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 w-full md:w-auto">
                     </select>
                 </div>
             </div>
 
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-emerald-900/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div class="flex items-center gap-2 w-full sm:w-auto">
                     <label class="text-xs font-bold text-slate-600 whitespace-nowrap">월별 선택:</label>
-                    <input type="month" id="attendance-month-input" onchange="renderAttendanceMatrix()" class="border border-slate-300 rounded-lg px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1 sm:flex-none">
+                    <input type="month" id="attendance-month-input" onchange="renderAttendanceMatrix()" class="border border-slate-200 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 flex-1 sm:flex-none">
                 </div>
                 <div class="flex flex-wrap gap-2 w-full sm:w-auto">
-                    <button onclick="calculateAttendanceStats6M()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 transition shadow-sm">
-                        <i class="fa-solid fa-chart-pie"></i> 최근 6개월 출석 통계
+                    <button onclick="calculateAttendanceStats6M()" class="px-3 py-2 text-xs font-semibold rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 transition shadow-sm">
+                        <i class="fa-solid fa-chart-pie text-emerald-600"></i> 최근 6개월 출석 통계
                     </button>
-                    <button onclick="switchAttendanceView('check')" id="btn-view-check" class="flex-1 sm:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white shadow">회차별 체크</button>
-                    <button onclick="switchAttendanceView('matrix')" id="btn-view-matrix" class="flex-1 sm:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300">월별 현황표</button>
+                    <button onclick="switchAttendanceView('check')" id="btn-view-check" class="flex-1 sm:flex-none px-3.5 py-2 text-xs font-semibold rounded-xl bg-emerald-700 text-white shadow-sm">회차별 체크</button>
+                    <button onclick="switchAttendanceView('matrix')" id="btn-view-matrix" class="flex-1 sm:flex-none px-3.5 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">월별 현황표</button>
                 </div>
             </div>
 
-            <div id="attendance-stats-box" class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100 space-y-3 hidden">
+            <div id="attendance-stats-box" class="bg-gradient-to-r from-emerald-50/80 to-teal-50/80 rounded-2xl p-4 border border-emerald-100 space-y-3 hidden shadow-sm">
                 <div class="flex justify-between items-center">
-                    <h4 id="attendance-stats-title" class="text-xs sm:text-sm font-bold text-indigo-950 flex items-center gap-1.5">
-                        <i class="fa-solid fa-chart-column text-indigo-600"></i> 최근 6개월 출석 합산 현황
+                    <h4 id="attendance-stats-title" class="text-xs sm:text-sm font-bold text-emerald-950 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-column text-emerald-700"></i> 최근 6개월 출석 합산 현황
                     </h4>
                     <button onclick="document.getElementById('attendance-stats-box').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 text-xs">
                         <i class="fa-solid fa-xmark"></i> 닫기
@@ -108,35 +110,35 @@
                 </div>
             </div>
 
-            <div id="view-mode-check" class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div id="view-mode-check" class="bg-white rounded-2xl shadow-sm border border-emerald-900/10 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs sm:text-sm whitespace-nowrap">
                         <thead>
-                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-600 uppercase tracking-wider">
+                            <tr class="bg-emerald-50/70 border-b border-emerald-100 text-emerald-900 uppercase tracking-wider">
                                 <th class="p-3 w-10 text-center">No</th>
                                 <th class="p-3 w-24">이름</th>
                                 <th class="p-3 w-40 text-center">참석 여부</th>
                                 <th class="p-3 min-w-[240px]">불참 사유</th>
                             </tr>
                         </thead>
-                        <tbody id="attendance-check-tbody" class="divide-y divide-slate-200">
+                        <tbody id="attendance-check-tbody" class="divide-y divide-slate-100">
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div id="view-mode-matrix" class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hidden">
-                <div class="p-3 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-                    <span class="text-xs font-bold text-slate-600" id="matrix-month-title">월별 출석 현황</span>
-                    <button onclick="exportAttendanceCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1">
+            <div id="view-mode-matrix" class="bg-white rounded-2xl shadow-sm border border-emerald-900/10 overflow-hidden hidden">
+                <div class="p-3 bg-emerald-50/50 border-b border-emerald-100 flex justify-between items-center">
+                    <span class="text-xs font-bold text-slate-700" id="matrix-month-title">월별 출석 현황</span>
+                    <button onclick="exportAttendanceCSV()" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs px-3 py-1.5 rounded-xl font-medium transition flex items-center gap-1">
                         <i class="fa-solid fa-file-excel"></i> CSV 내보내기
                     </button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs whitespace-nowrap">
-                        <thead id="matrix-thead" class="bg-slate-100 border-b border-slate-200 text-slate-600">
+                        <thead id="matrix-thead" class="bg-emerald-50/70 border-b border-emerald-100 text-emerald-900">
                         </thead>
-                        <tbody id="matrix-tbody" class="divide-y divide-slate-200">
+                        <tbody id="matrix-tbody" class="divide-y divide-slate-100">
                         </tbody>
                     </table>
                 </div>
@@ -145,42 +147,42 @@
 
         <!-- 3. 봉사보고 탭 -->
         <section id="tab-volunteer" class="tab-content space-y-4 hidden">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 space-y-3">
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-emerald-900/10 space-y-3">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                     <div>
-                        <h2 class="text-sm sm:text-base font-bold text-slate-700 flex items-center gap-2">
+                        <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
                             <span>월별 봉사 보고 및 누적 통계</span>
-                            <span id="current-sy-label" class="text-xs font-normal text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200"></span>
+                            <span id="current-sy-label" class="text-xs font-normal text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200"></span>
                         </h2>
                         <p class="text-xs text-slate-500">파이오니아(월50h/연550-600h 목표) 및 일반성원 보고 관리</p>
                     </div>
                     <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <input type="month" id="volunteer-month-input" onchange="onVolunteerMonthChanged()" class="border border-slate-300 rounded-lg px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1 sm:flex-none">
+                        <input type="month" id="volunteer-month-input" onchange="onVolunteerMonthChanged()" class="border border-slate-200 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 flex-1 sm:flex-none">
                     </div>
                 </div>
 
                 <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
-                    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
-                        <span class="text-[11px] font-semibold text-slate-600 px-2"><i class="fa-solid fa-chart-line text-indigo-600"></i> 합산:</span>
-                        <button onclick="calculatePioneerStats(3)" class="px-2.5 py-1 text-xs font-semibold rounded bg-white text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 shadow-sm transition">3개월</button>
-                        <button onclick="calculatePioneerStats(6)" class="px-2.5 py-1 text-xs font-semibold rounded bg-white text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 shadow-sm transition">6개월</button>
-                        <button onclick="calculatePioneerStats('year')" class="px-2.5 py-1 text-xs font-semibold rounded bg-indigo-600 text-white shadow-sm transition">봉사연도</button>
+                    <div class="flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-xl">
+                        <span class="text-[11px] font-semibold text-slate-600 px-2"><i class="fa-solid fa-chart-line text-emerald-700"></i> 합산:</span>
+                        <button onclick="calculatePioneerStats(3)" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 shadow-sm transition">3개월</button>
+                        <button onclick="calculatePioneerStats(6)" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 shadow-sm transition">6개월</button>
+                        <button onclick="calculatePioneerStats('year')" class="px-3 py-1.5 text-xs font-semibold rounded bg-emerald-700 text-white shadow-sm transition">봉사연도</button>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <button onclick="shareVolunteerReportSMS()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1 shadow">
+                        <button onclick="shareVolunteerReportSMS()" class="bg-teal-700 hover:bg-teal-800 text-white text-xs px-3.5 py-2 rounded-xl font-medium transition flex items-center gap-1 shadow-sm">
                             <i class="fa-solid fa-comment-sms"></i> 문자 복사
                         </button>
-                        <button onclick="generateCleanReportImage()" class="bg-violet-600 hover:bg-violet-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1 shadow">
+                        <button onclick="generateCleanReportImage()" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs px-3.5 py-2 rounded-xl font-medium transition flex items-center gap-1 shadow-sm">
                             <i class="fa-solid fa-file-image"></i> 이미지 저장/공유
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div id="pioneer-stats-box" class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 border border-indigo-100 space-y-3 hidden">
+            <div id="pioneer-stats-box" class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-4 border border-emerald-100 space-y-3 hidden shadow-sm">
                 <div class="flex justify-between items-center">
-                    <h4 id="pioneer-stats-title" class="text-xs sm:text-sm font-bold text-indigo-900 flex items-center gap-1.5">
+                    <h4 id="pioneer-stats-title" class="text-xs sm:text-sm font-bold text-emerald-950 flex items-center gap-1.5">
                         <i class="fa-solid fa-award text-amber-500"></i> 파이오니아 누적 봉사 시간 합산
                     </h4>
                     <button onclick="document.getElementById('pioneer-stats-box').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 text-xs">
@@ -191,15 +193,15 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="p-3 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+            <div class="bg-white rounded-2xl shadow-sm border border-emerald-900/10 overflow-hidden">
+                <div class="p-3.5 bg-emerald-50/50 border-b border-emerald-100 flex justify-between items-center">
                     <span class="text-xs font-bold text-slate-700">월별 봉사 보고 입력 (자동 저장)</span>
                     <span class="text-[11px] text-slate-400">수정 시 클라우드에 자동 반영됩니다</span>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs sm:text-sm whitespace-nowrap">
                         <thead>
-                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-600 uppercase tracking-wider">
+                            <tr class="bg-emerald-50/70 border-b border-emerald-100 text-emerald-900 uppercase tracking-wider">
                                 <th class="p-3 w-12 text-center">No</th>
                                 <th class="p-3 w-28">이름</th>
                                 <th class="p-3 w-36">봉사 시간 / 참여</th>
@@ -208,7 +210,7 @@
                                 <th class="p-3 min-w-[220px]">비고</th>
                             </tr>
                         </thead>
-                        <tbody id="volunteer-tbody" class="divide-y divide-slate-200">
+                        <tbody id="volunteer-tbody" class="divide-y divide-slate-100">
                         </tbody>
                     </table>
                 </div>
@@ -217,25 +219,25 @@
 
         <!-- 4. 양치는 방문 탭 -->
         <section id="tab-shepherding" class="tab-content space-y-4 hidden">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-xl shadow-sm border border-slate-200 gap-3">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-emerald-900/10 gap-3">
                 <div>
-                    <h2 class="text-sm sm:text-base font-bold text-slate-700 flex items-center gap-2">
-                        <i class="fa-solid fa-heart-pulse text-rose-500"></i> 양치는 방문 기록
+                    <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-heart-pulse text-emerald-600"></i> 양치는 방문 기록
                     </h2>
                     <p class="text-xs text-slate-500">방문 대상, 동반 방문자, 지난 방문일, 방문 날짜(미정 가능) 및 요약을 관리합니다.</p>
                 </div>
-                <button onclick="openShepherdingModal()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3.5 py-2 rounded-lg font-medium transition flex items-center justify-center gap-1 shadow">
+                <button onclick="openShepherdingModal()" class="w-full sm:w-auto bg-emerald-700 hover:bg-emerald-800 text-white text-xs px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 shadow-sm">
                     <i class="fa-solid fa-plus"></i> 새 방문 기록 추가
                 </button>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-sm border border-emerald-900/10 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs sm:text-sm">
                         <thead>
-                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider whitespace-nowrap">
+                            <tr class="bg-emerald-50/70 border-b border-emerald-100 text-emerald-900 font-semibold uppercase tracking-wider whitespace-nowrap">
                                 <th class="p-3 text-center w-10">No</th>
-                                <th class="p-3 w-28 font-bold text-indigo-900">대상</th>
+                                <th class="p-3 w-28 font-bold text-emerald-950">대상</th>
                                 <th class="p-3 w-20">방문자 1</th>
                                 <th class="p-3 w-20">방문자 2</th>
                                 <th class="p-3 w-28 text-center">지난 방문 날짜</th>
@@ -244,7 +246,7 @@
                                 <th class="p-3 text-center w-28">관리 / 공유</th>
                             </tr>
                         </thead>
-                        <tbody id="shepherding-table-body" class="divide-y divide-slate-200">
+                        <tbody id="shepherding-table-body" class="divide-y divide-slate-100">
                         </tbody>
                     </table>
                 </div>
@@ -253,28 +255,28 @@
 
         <!-- 5. 출판물 탭 -->
         <section id="tab-publication" class="tab-content space-y-4 hidden">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-emerald-900/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
-                    <h2 class="text-sm sm:text-base font-bold text-slate-700 flex items-center gap-2">
+                    <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
                         <span>출판물 신청 현황</span>
-                        <span class="text-xs font-normal text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">가족 대표 성원</span>
+                        <span class="text-xs font-normal text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">가족 대표 성원</span>
                     </h2>
                     <p class="text-xs text-slate-500">가족 대표 성원들의 월별 출판물 신청 내역을 관리합니다.</p>
                 </div>
                 <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
-                    <input type="month" id="pub-month-input" onchange="renderPublicationTable()" class="border border-slate-300 rounded-lg px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <button onclick="openPubTypeModal()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs px-3 py-2 rounded-lg font-medium transition flex items-center gap-1 shadow whitespace-nowrap">
+                    <input type="month" id="pub-month-input" onchange="renderPublicationTable()" class="border border-slate-200 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                    <button onclick="openPubTypeModal()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs px-3.5 py-2 rounded-xl font-medium transition flex items-center gap-1 shadow-sm whitespace-nowrap">
                         <i class="fa-solid fa-gear"></i> 종류 관리
                     </button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-sm border border-emerald-900/10 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs sm:text-sm whitespace-nowrap">
                         <thead id="pub-thead">
                         </thead>
-                        <tbody id="pub-tbody" class="divide-y divide-slate-200">
+                        <tbody id="pub-tbody" class="divide-y divide-slate-100">
                         </tbody>
                     </table>
                 </div>
@@ -283,15 +285,15 @@
 
         <!-- 6. 설정 탭 -->
         <section id="tab-settings" class="tab-content space-y-4 hidden">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <h2 class="text-sm sm:text-base font-bold text-slate-700 mb-1">데이터 및 설정 관리</h2>
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-emerald-900/10">
+                <h2 class="text-sm sm:text-base font-bold text-slate-800 mb-1">데이터 및 설정 관리</h2>
                 <p class="text-xs text-slate-500 mb-4">클라우드 데이터베이스 초기화 및 백업을 수행합니다.</p>
                 
                 <div class="flex flex-col sm:flex-row flex-wrap gap-3">
-                    <button onclick="resetToDefaultData()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs px-4 py-2.5 rounded-lg font-medium transition flex items-center justify-center gap-2 shadow">
+                    <button onclick="resetToDefaultData()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-2 shadow-sm">
                         <i class="fa-solid fa-rotate-right"></i> 기본 데이터로 초기화 (클라우드)
                     </button>
-                    <button onclick="exportDataJSON()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-4 py-2.5 rounded-lg font-medium transition flex items-center justify-center gap-2 shadow">
+                    <button onclick="exportDataJSON()" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-2 shadow-sm">
                         <i class="fa-solid fa-download"></i> 데이터 백업 (JSON)
                     </button>
                 </div>
@@ -303,7 +305,7 @@
     <!-- 하단 네비게이션 바 -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-lg z-40">
         <div class="max-w-5xl mx-auto grid grid-cols-6 items-center h-16 px-1">
-            <button onclick="switchTab('group')" id="nav-group" class="nav-btn flex flex-col items-center justify-center h-full text-indigo-600 font-bold transition">
+            <button onclick="switchTab('group')" id="nav-group" class="nav-btn flex flex-col items-center justify-center h-full text-emerald-700 font-bold transition">
                 <i class="fa-solid fa-people-group text-sm sm:text-base mb-0.5"></i>
                 <span class="text-[9px] sm:text-[11px] leading-tight">기쁨집단</span>
             </button>
@@ -332,17 +334,17 @@
 
     <!-- 모달: 성원 추가/수정 -->
     <div id="member-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-5 sm:p-6 space-y-4">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-5 sm:p-6 space-y-4">
             <h3 id="member-modal-title" class="text-sm sm:text-base font-bold text-slate-800">성원 추가</h3>
             <input type="hidden" id="modal-member-original-name">
             <div class="space-y-3">
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">이름</label>
-                    <input type="text" id="modal-member-name" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" id="modal-member-name" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">구분</label>
-                    <select id="modal-member-gender" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <select id="modal-member-gender" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600">
                         <option value="형제">형제</option>
                         <option value="자매">자매</option>
                         <option value="자녀">자녀</option>
@@ -350,68 +352,68 @@
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">임명 (중복 선택 가능)</label>
-                    <div class="grid grid-cols-2 gap-2 p-2 border border-slate-300 rounded-lg bg-slate-50 text-xs sm:text-sm">
+                    <div class="grid grid-cols-2 gap-2 p-2.5 border border-slate-200 rounded-xl bg-slate-50 text-xs sm:text-sm">
                         <label class="flex items-center gap-2 cursor-pointer p-1">
-                            <input type="checkbox" name="modal-roles" value="파이오니아" class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
+                            <input type="checkbox" name="modal-roles" value="파이오니아" class="w-4 h-4 text-emerald-700 rounded border-slate-300 focus:ring-emerald-600">
                             <span>파이오니아</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer p-1">
-                            <input type="checkbox" name="modal-roles" value="장로" class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
+                            <input type="checkbox" name="modal-roles" value="장로" class="w-4 h-4 text-emerald-700 rounded border-slate-300 focus:ring-emerald-600">
                             <span>장로</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer p-1">
-                            <input type="checkbox" name="modal-roles" value="봉사의 종" class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
+                            <input type="checkbox" name="modal-roles" value="봉사의 종" class="w-4 h-4 text-emerald-700 rounded border-slate-300 focus:ring-emerald-600">
                             <span>봉사의 종</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer p-1">
-                            <input type="checkbox" name="modal-roles" value="병교위" class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
+                            <input type="checkbox" name="modal-roles" value="병교위" class="w-4 h-4 text-emerald-700 rounded border-slate-300 focus:ring-emerald-600">
                             <span>병교위</span>
                         </label>
                     </div>
                 </div>
-                <div class="bg-indigo-50/70 p-3 rounded-lg border border-indigo-100">
+                <div class="bg-emerald-50/70 p-3.5 rounded-xl border border-emerald-100">
                     <label class="flex items-center gap-2 cursor-pointer select-none">
-                        <input type="checkbox" id="modal-member-isPubRep" class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
-                        <span class="text-xs font-bold text-indigo-900">가족 출판물 대표 성원</span>
+                        <input type="checkbox" id="modal-member-isPubRep" class="w-4 h-4 text-emerald-700 rounded border-slate-300 focus:ring-emerald-600">
+                        <span class="text-xs font-bold text-emerald-950">가족 출판물 대표 성원</span>
                     </label>
                     <p class="text-[11px] text-slate-500 mt-1 pl-6">체크 시 출판물 탭에 해당 성원이 가족 대표로 표시됩니다.</p>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">연락처 / 비고</label>
-                    <input type="text" id="modal-member-memo" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="예: 010-0000-0000">
+                    <input type="text" id="modal-member-memo" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="예: 010-0000-0000">
                 </div>
             </div>
             <div class="flex justify-end gap-2 pt-2">
-                <button onclick="closeMemberModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300">취소</button>
-                <button onclick="saveMember()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow">저장</button>
+                <button onclick="closeMemberModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">취소</button>
+                <button onclick="saveMember()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-emerald-700 text-white hover:bg-emerald-800 shadow-sm">저장</button>
             </div>
         </div>
     </div>
 
     <!-- 모달: 양치는 방문 추가/수정 모달 -->
     <div id="shepherding-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-5 sm:p-6 space-y-4">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-5 sm:p-6 space-y-4">
             <h3 id="shepherding-modal-title" class="text-sm sm:text-base font-bold text-slate-800">양치는 방문 기록</h3>
             <input type="hidden" id="modal-shepherding-id">
             <div class="space-y-3">
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">방문 대상</label>
-                    <input type="text" id="modal-shepherding-target" placeholder="예: 김지훈 형제 (또는 가족)" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" id="modal-shepherding-target" placeholder="예: 김지훈 형제 (또는 가족)" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 mb-1">방문자 1</label>
-                        <input type="text" id="modal-shepherding-v1" placeholder="예: 이지후" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" id="modal-shepherding-v1" placeholder="예: 김지훈" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 mb-1">방문자 2</label>
-                        <input type="text" id="modal-shepherding-v2" placeholder="동반 방문자" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" id="modal-shepherding-v2" placeholder="동반 방문자" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 mb-1">지난 방문 날짜 <span class="text-[10px] font-normal text-slate-400">(선택)</span></label>
-                        <input type="date" id="modal-shepherding-last-date" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-600">
+                        <input type="date" id="modal-shepherding-last-date" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 text-slate-600">
                     </div>
                     <div>
                         <div class="flex justify-between items-center mb-1">
@@ -421,33 +423,33 @@
                                 <span class="text-xs font-bold text-amber-600">날짜 미정</span>
                             </label>
                         </div>
-                        <input type="date" id="modal-shepherding-date" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="date" id="modal-shepherding-date" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">메모 (방문 요약 및 격려한 점)</label>
-                    <textarea id="modal-shepherding-memo" rows="4" placeholder="방문해서 나눈 영적 요점, 격려한 내용, 또는 방문 예정 메모 등을 기록하세요." class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed"></textarea>
+                    <textarea id="modal-shepherding-memo" rows="4" placeholder="방문해서 나눈 영적 요점, 격려한 내용, 또는 방문 예정 메모 등을 기록하세요." class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 leading-relaxed"></textarea>
                 </div>
             </div>
             <div class="flex justify-end gap-2 pt-2">
-                <button onclick="closeShepherdingModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300">취소</button>
-                <button onclick="saveShepherdingRecord()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow">저장</button>
+                <button onclick="closeShepherdingModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">취소</button>
+                <button onclick="saveShepherdingRecord()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-emerald-700 text-white hover:bg-emerald-800 shadow-sm">저장</button>
             </div>
         </div>
     </div>
 
     <!-- 모달: 출판물 종류 관리 -->
     <div id="pub-type-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-5 sm:p-6 space-y-4">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-5 sm:p-6 space-y-4">
             <h3 class="text-sm sm:text-base font-bold text-slate-800">출판물 종류 관리</h3>
             <div class="flex gap-2">
-                <input type="text" id="new-pub-type-input" placeholder="새 출판물 종류 입력" class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <button onclick="addPubType()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-4 py-2 rounded-lg font-medium shadow whitespace-nowrap">추가</button>
+                <input type="text" id="new-pub-type-input" placeholder="새 출판물 종류 입력" class="flex-1 border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                <button onclick="addPubType()" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs px-4 py-2 rounded-xl font-medium shadow-sm whitespace-nowrap">추가</button>
             </div>
-            <div class="max-h-48 overflow-y-auto border border-slate-200 rounded-lg divide-y divide-slate-200" id="pub-type-list">
+            <div class="max-h-48 overflow-y-auto border border-slate-200 rounded-xl divide-y divide-slate-100" id="pub-type-list">
             </div>
             <div class="flex justify-end pt-2">
-                <button onclick="closePubTypeModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300">닫기</button>
+                <button onclick="closePubTypeModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">닫기</button>
             </div>
         </div>
     </div>
@@ -461,15 +463,15 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <p class="text-xs text-indigo-600 font-medium">💡 스마트폰에서는 이미지를 <b>길게 눌러 '사진 앱에 저장'</b>하세요.</p>
-            <div class="overflow-y-auto flex-1 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center p-1">
-                <img id="preview-modal-img" src="" alt="봉사보고 리포트" class="w-full h-auto rounded shadow-sm">
+            <p class="text-xs text-emerald-700 font-medium">💡 스마트폰에서는 이미지를 <b>길게 눌러 '사진 앱에 저장'</b>하세요.</p>
+            <div class="overflow-y-auto flex-1 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center p-1">
+                <img id="preview-modal-img" src="" alt="봉사보고 리포트" class="w-full h-auto rounded-lg shadow-sm">
             </div>
             <div class="flex gap-2 pt-1">
-                <button id="modal-native-share-btn" onclick="shareGeneratedImageFile()" class="flex-1 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow flex items-center justify-center gap-1">
+                <button id="modal-native-share-btn" onclick="shareGeneratedImageFile()" class="flex-1 py-2 text-xs font-bold rounded-xl bg-emerald-700 text-white hover:bg-emerald-800 shadow-sm flex items-center justify-center gap-1">
                     <i class="fa-solid fa-share-nodes"></i> 공유 / 사진 저장
                 </button>
-                <button onclick="closeImagePreviewModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300">
+                <button onclick="closeImagePreviewModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">
                     닫기
                 </button>
             </div>
@@ -478,18 +480,18 @@
 
     <!-- 이미지 캡처용 전용 템플릿 -->
     <div id="clean-image-template" style="position: absolute; left: -9999px; top: -9999px; width: 480px;" class="bg-white p-6 font-sans text-slate-800">
-        <div class="border-b-2 border-indigo-600 pb-3 mb-4 flex justify-between items-end">
+        <div class="border-b-2 border-emerald-700 pb-3 mb-4 flex justify-between items-end">
             <div>
-                <span class="text-xs font-semibold text-indigo-600 tracking-wider uppercase" id="card-sy-text">2027 봉사연도</span>
+                <span class="text-xs font-semibold text-emerald-700 tracking-wider uppercase" id="card-sy-text">2027 봉사연도</span>
                 <h2 class="text-xl font-extrabold text-slate-900" id="card-month-title">기쁨 집단 봉사 보고</h2>
             </div>
             <span class="text-xs text-slate-400 font-medium" id="card-gen-date"></span>
         </div>
 
-        <div class="overflow-hidden rounded-lg border border-slate-200">
+        <div class="overflow-hidden rounded-xl border border-slate-200">
             <table class="w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="bg-indigo-50 text-indigo-900 font-bold border-b border-indigo-100">
+                    <tr class="bg-emerald-50 text-emerald-900 font-bold border-b border-emerald-100">
                         <th class="p-2.5 w-10 text-center">No</th>
                         <th class="p-2.5 w-24">이름</th>
                         <th class="p-2.5 w-24 text-center">봉사시간</th>
@@ -524,10 +526,8 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        // 기쁨 집단 전용 데이터베이스 문서 경로 분리
         const DATA_DOC = doc(db, "joyGroup", "mainData");
 
-        // 기쁨 집단 성원 명단 세팅 (총 18명, 임명 및 출판물 대표 반영)[span_5](start_span)[span_5](end_span)
         const DEFAULT_MEMBERS = [
             { name: "김지훈", gender: "형제", roles: ["장로", "파이오니아"], isPubRep: true, memo: "" },
             { name: "하서진", gender: "자매", roles: ["파이오니아"], isPubRep: false, memo: "" },
@@ -581,7 +581,7 @@
                 if (!appData.shepherding) appData.shepherding = [];
 
                 statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400"></span> 클라우드 연결됨`;
-                statusEl.className = "text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-emerald-800 text-emerald-100 flex items-center gap-1 shadow-inner";
+                statusEl.className = "text-[10px] sm:text-xs px-2.5 py-1 rounded-full bg-emerald-900/80 text-emerald-200 flex items-center gap-1.5 shadow-inner";
             } else {
                 setDoc(DATA_DOC, appData);
             }
@@ -590,7 +590,7 @@
             console.error("Firebase sync error:", error);
             const statusEl = document.getElementById("cloud-status");
             statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-400"></span> 오프라인`;
-            statusEl.className = "text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-rose-800 text-rose-100 flex items-center gap-1 shadow-inner";
+            statusEl.className = "text-[10px] sm:text-xs px-2.5 py-1 rounded-full bg-rose-900/80 text-rose-200 flex items-center gap-1.5 shadow-inner";
         });
 
         window.saveDataToCloud = async function() {
@@ -607,7 +607,7 @@
 
     <!-- UI 로직 -->
     <script>
-        const APP_VERSION = '2.0.0';
+        const APP_VERSION = '2.1.0';
 
         function checkAppVersion() {
             const savedVersion = localStorage.getItem('joy_app_version');
@@ -664,7 +664,7 @@
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(el => {
-                el.classList.remove('text-indigo-600', 'font-bold');
+                el.classList.remove('text-emerald-700', 'font-bold');
                 el.classList.add('text-slate-400', 'font-medium');
             });
 
@@ -672,7 +672,7 @@
             const nav = document.getElementById(`nav-${tabId}`);
             if (nav) {
                 nav.classList.remove('text-slate-400', 'font-medium');
-                nav.classList.add('text-indigo-600', 'font-bold');
+                nav.classList.add('text-emerald-700', 'font-bold');
             }
 
             if (tabId === 'attendance') renderAttendanceCheck();
@@ -693,9 +693,9 @@
                 tr.className = "hover:bg-slate-50 transition text-slate-700";
                 
                 let genderBadge = '';
-                if (m.gender === '형제') genderBadge = '<span class="px-2 py-0.5 text-[11px] rounded-full font-medium bg-blue-100 text-blue-700">형제</span>';
-                else if (m.gender === '자매') genderBadge = '<span class="px-2 py-0.5 text-[11px] rounded-full font-medium bg-pink-100 text-pink-700">자매</span>';
-                else genderBadge = '<span class="px-2 py-0.5 text-[11px] rounded-full font-medium bg-amber-100 text-amber-700">자녀</span>';
+                if (m.gender === '형제') genderBadge = '<span class="px-2 py-0.5 text-[11px] rounded-full font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">형제</span>';
+                else if (m.gender === '자매') genderBadge = '<span class="px-2 py-0.5 text-[11px] rounded-full font-medium bg-teal-50 text-teal-800 border border-teal-200">자매</span>';
+                else genderBadge = '<span class="px-2 py-0.5 text-[11px] rounded-full font-medium bg-amber-50 text-amber-800 border border-amber-200">자녀</span>';
 
                 let rolesHTML = '';
                 if (!m.roles || m.roles.length === 0) {
@@ -703,16 +703,16 @@
                 } else {
                     rolesHTML = m.roles.map(r => {
                         let bg = 'bg-slate-100 text-slate-600';
-                        if (r === '파이오니아') bg = 'bg-indigo-100 text-indigo-700 font-bold';
-                        else if (r === '장로') bg = 'bg-purple-100 text-purple-700';
-                        else if (r === '봉사의 종') bg = 'bg-emerald-100 text-emerald-700';
-                        else if (r === '병교위') bg = 'bg-amber-100 text-amber-700';
-                        return `<span class="px-2 py-0.5 text-[11px] rounded-full font-medium ${bg} inline-block mr-1 mb-1">${r}</span>`;
+                        if (r === '파이오니아') bg = 'bg-emerald-100 text-emerald-800 font-semibold';
+                        else if (r === '장로') bg = 'bg-teal-100 text-teal-900 font-semibold';
+                        else if (r === '봉사의 종') bg = 'bg-cyan-100 text-cyan-900 font-semibold';
+                        else if (r === '병교위') bg = 'bg-amber-100 text-amber-900 font-semibold';
+                        return `<span class="px-2 py-0.5 text-[11px] rounded-full ${bg} inline-block mr-1 mb-1">${r}</span>`;
                     }).join('');
                 }
 
                 let pubRepBadge = m.isPubRep 
-                    ? '<span class="px-2 py-0.5 text-[11px] rounded-full font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">대표</span>' 
+                    ? '<span class="px-2 py-0.5 text-[11px] rounded-full font-bold bg-emerald-100 text-emerald-900 border border-emerald-200">대표</span>' 
                     : '<span class="text-xs text-slate-300">-</span>';
 
                 tr.innerHTML = `
@@ -723,7 +723,7 @@
                     <td class="p-3 text-center">${pubRepBadge}</td>
                     <td class="p-3 text-xs text-slate-500">${m.memo || '-'}</td>
                     <td class="p-3 text-center">
-                        <button onclick="openMemberModal('${m.name}')" class="text-indigo-600 hover:text-indigo-800 p-1 mr-1" title="수정"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="openMemberModal('${m.name}')" class="text-emerald-700 hover:text-emerald-900 p-1 mr-1" title="수정"><i class="fa-solid fa-pen"></i></button>
                         <button onclick="deleteMember('${m.name}')" class="text-rose-500 hover:text-rose-700 p-1" title="삭제"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
@@ -872,13 +872,13 @@
             if (mode === 'check') {
                 checkDiv.classList.remove('hidden');
                 matrixDiv.classList.add('hidden');
-                btnCheck.className = "flex-1 sm:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white shadow";
-                btnMatrix.className = "flex-1 sm:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300";
+                btnCheck.className = "flex-1 sm:flex-none px-3.5 py-2 text-xs font-semibold rounded-xl bg-emerald-700 text-white shadow-sm";
+                btnMatrix.className = "flex-1 sm:flex-none px-3.5 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200";
             } else {
                 checkDiv.classList.add('hidden');
                 matrixDiv.classList.remove('hidden');
-                btnMatrix.className = "flex-1 sm:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white shadow";
-                btnCheck.className = "flex-1 sm:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300";
+                btnMatrix.className = "flex-1 sm:flex-none px-3.5 py-2 text-xs font-semibold rounded-xl bg-emerald-700 text-white shadow-sm";
+                btnCheck.className = "flex-1 sm:flex-none px-3.5 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200";
                 renderAttendanceMatrix();
             }
         }
@@ -905,14 +905,14 @@
                     <td class="p-2.5 text-center text-xs text-slate-400 w-10">${idx + 1}</td>
                     <td class="p-2.5 font-bold text-slate-800 w-24">${m.name}</td>
                     <td class="p-2.5 text-center w-40">
-                        <div class="inline-flex rounded-lg shadow-sm p-0.5 bg-slate-100 text-[11px]">
-                            <button type="button" onclick="setAttendanceStatus('${session}', '${m.name}', '현장')" class="px-2 py-1 rounded-md font-medium transition ${record.status === '현장' ? 'bg-indigo-600 text-white shadow' : 'text-slate-600 hover:bg-slate-200'}">현장</button>
-                            <button type="button" onclick="setAttendanceStatus('${session}', '${m.name}', '줌')" class="px-2 py-1 rounded-md font-medium transition ${record.status === '줌' ? 'bg-emerald-600 text-white shadow' : 'text-slate-600 hover:bg-slate-200'}">Zoom</button>
-                            <button type="button" onclick="setAttendanceStatus('${session}', '${m.name}', '불참')" class="px-2 py-1 rounded-md font-medium transition ${record.status === '불참' ? 'bg-rose-600 text-white shadow' : 'text-slate-600 hover:bg-slate-200'}">불참</button>
+                        <div class="inline-flex rounded-xl shadow-sm p-0.5 bg-slate-100 text-[11px]">
+                            <button type="button" onclick="setAttendanceStatus('${session}', '${m.name}', '현장')" class="px-2.5 py-1 rounded-lg font-medium transition ${record.status === '현장' ? 'bg-emerald-700 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-200'}">현장</button>
+                            <button type="button" onclick="setAttendanceStatus('${session}', '${m.name}', '줌')" class="px-2.5 py-1 rounded-lg font-medium transition ${record.status === '줌' ? 'bg-teal-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-200'}">Zoom</button>
+                            <button type="button" onclick="setAttendanceStatus('${session}', '${m.name}', '불참')" class="px-2.5 py-1 rounded-lg font-medium transition ${record.status === '불참' ? 'bg-rose-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-200'}">불참</button>
                         </div>
                     </td>
                     <td class="p-2.5 min-w-[240px]">
-                        <input type="text" value="${record.reason || ''}" placeholder="불참 사유 입력" onchange="setAttendanceReason('${session}', '${m.name}', this.value)" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 ${record.status === '불참' ? 'bg-rose-50 border-rose-300 font-medium' : 'bg-slate-50 text-slate-400'}">
+                        <input type="text" value="${record.reason || ''}" placeholder="불참 사유 입력" onchange="setAttendanceReason('${session}', '${m.name}', this.value)" class="w-full border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-600 ${record.status === '불참' ? 'bg-rose-50 border-rose-300 font-medium' : 'bg-slate-50 text-slate-400'}">
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -959,7 +959,7 @@
             const statsTitle = document.getElementById('attendance-stats-title');
             const statsContent = document.getElementById('attendance-stats-content');
 
-            statsTitle.innerHTML = `<i class="fa-solid fa-chart-column text-indigo-600"></i> 최근 6개월 출석 합산 현황 <span class="text-xs font-normal text-slate-500 ml-1">(${targetMonths[targetMonths.length - 1]} ~ ${targetMonths[0]} / 총 ${allSessions.length}회 집회)</span>`;
+            statsTitle.innerHTML = `<i class="fa-solid fa-chart-column text-emerald-700"></i> 최근 6개월 출석 합산 현황 <span class="text-xs font-normal text-slate-500 ml-1">(${targetMonths[targetMonths.length - 1]} ~ ${targetMonths[0]} / 총 ${allSessions.length}회 집회)</span>`;
 
             statsContent.innerHTML = '';
 
@@ -982,18 +982,18 @@
                 const attendanceRate = totalRecorded > 0 ? Math.round((attendedTotal / totalRecorded) * 100) : 0;
 
                 const card = document.createElement('div');
-                card.className = "bg-white p-3 rounded-lg border border-slate-200 shadow-sm space-y-1.5";
+                card.className = "bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm space-y-1.5";
                 card.innerHTML = `
                     <div class="flex justify-between items-center">
                         <span class="font-bold text-slate-800 text-sm">${member.name}</span>
-                        <span class="text-xs font-bold ${attendanceRate >= 80 ? 'text-indigo-600' : 'text-amber-600'}">출석률 ${attendanceRate}%</span>
+                        <span class="text-xs font-bold ${attendanceRate >= 80 ? 'text-emerald-700' : 'text-amber-600'}">출석률 ${attendanceRate}%</span>
                     </div>
                     <div class="text-[11px] text-slate-500 flex justify-between">
-                        <span>현장: <b class="text-indigo-600">${onsiteCount}</b>회 / Zoom: <b class="text-emerald-600">${zoomCount}</b>회</span>
+                        <span>현장: <b class="text-emerald-700">${onsiteCount}</b>회 / Zoom: <b class="text-teal-600">${zoomCount}</b>회</span>
                         <span>불참: <b class="text-rose-500">${absentCount}</b>회</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-indigo-600 h-1.5 rounded-full" style="width: ${attendanceRate}%"></div>
+                        <div class="bg-emerald-600 h-1.5 rounded-full" style="width: ${attendanceRate}%"></div>
                     </div>
                 `;
                 statsContent.appendChild(card);
@@ -1014,7 +1014,7 @@
             thead.innerHTML = '';
             tbody.innerHTML = '';
 
-            let headerHTML = `<tr class="border-b border-slate-200 text-xs"><th class="p-3 w-12 text-center">No</th><th class="p-3 w-28">성원명</th>`;
+            let headerHTML = `<tr class="border-b border-emerald-100 text-xs"><th class="p-3 w-12 text-center">No</th><th class="p-3 w-28">성원명</th>`;
             allSessions.forEach(s => {
                 let shortName = s.replace(`(${ym.slice(0,4)})`, '').trim();
                 headerHTML += `<th class="p-3 text-center">${shortName}</th>`;
@@ -1029,9 +1029,9 @@
                     let badge = '-';
                     let cls = 'text-slate-300';
                     if (rec) {
-                        if (rec.status === '현장') { badge = '현장'; cls = 'bg-indigo-100 text-indigo-700 font-semibold px-2 py-0.5 rounded'; }
-                        else if (rec.status === '줌') { badge = 'Zoom'; cls = 'bg-emerald-100 text-emerald-700 font-semibold px-2 py-0.5 rounded'; }
-                        else if (rec.status === '불참') { badge = rec.reason ? `불참(${rec.reason})` : '불참'; cls = 'bg-rose-100 text-rose-700 px-2 py-0.5 rounded'; }
+                        if (rec.status === '현장') { badge = '현장'; cls = 'bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-md'; }
+                        else if (rec.status === '줌') { badge = 'Zoom'; cls = 'bg-teal-100 text-teal-800 font-semibold px-2 py-0.5 rounded-md'; }
+                        else if (rec.status === '불참') { badge = rec.reason ? `불참(${rec.reason})` : '불참'; cls = 'bg-rose-100 text-rose-800 px-2 py-0.5 rounded-md'; }
                     }
                     trHTML += `<td class="p-3 text-center"><span class="${cls}">${badge}</span></td>`;
                 });
@@ -1094,21 +1094,21 @@
                 if (isPioneer) {
                     inputCellHTML = `
                         <div class="flex items-center gap-1">
-                            <input type="number" min="0" step="0.5" value="${v.hours || ''}" onchange="setVolunteerData('${ym}', '${m.name}', 'hours', this.value)" class="w-16 border border-slate-300 rounded-lg px-2 py-1.5 text-xs text-center font-bold text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="0">
+                            <input type="number" min="0" step="0.5" value="${v.hours || ''}" onchange="setVolunteerData('${ym}', '${m.name}', 'hours', this.value)" class="w-16 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-center font-bold text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="0">
                             <span class="text-xs text-slate-500">h</span>
                         </div>
                     `;
                     creditCellHTML = `
                         <div class="flex items-center gap-1">
-                            <input type="number" min="0" step="0.5" value="${v.creditHours || ''}" onchange="setVolunteerData('${ym}', '${m.name}', 'creditHours', this.value)" class="w-16 border border-slate-300 rounded-lg px-2 py-1.5 text-xs text-center text-amber-700 bg-amber-50/50 focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="0">
+                            <input type="number" min="0" step="0.5" value="${v.creditHours || ''}" onchange="setVolunteerData('${ym}', '${m.name}', 'creditHours', this.value)" class="w-16 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-center text-teal-800 bg-teal-50/50 focus:outline-none focus:ring-2 focus:ring-teal-600" placeholder="0">
                             <span class="text-xs text-slate-500">h</span>
                         </div>
                     `;
                 } else {
                     inputCellHTML = `
                         <label class="flex items-center gap-2 cursor-pointer select-none">
-                            <input type="checkbox" ${v.participated ? 'checked' : ''} onchange="setVolunteerData('${ym}', '${m.name}', 'participated', this.checked)" class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
-                            <span class="text-xs font-semibold ${v.participated ? 'text-indigo-600' : 'text-slate-400'}">봉사 참여</span>
+                            <input type="checkbox" ${v.participated ? 'checked' : ''} onchange="setVolunteerData('${ym}', '${m.name}', 'participated', this.checked)" class="w-4 h-4 text-emerald-700 rounded border-slate-300 focus:ring-emerald-600">
+                            <span class="text-xs font-semibold ${v.participated ? 'text-emerald-800' : 'text-slate-400'}">봉사 참여</span>
                         </label>
                     `;
                     creditCellHTML = `<span class="text-xs text-slate-300">-</span>`;
@@ -1120,15 +1120,15 @@
                     <td class="p-3 text-center text-xs text-slate-400">${idx + 1}</td>
                     <td class="p-3">
                         <div class="font-semibold text-slate-800">${m.name}</div>
-                        <span class="text-[10px] px-1.5 py-0.2 rounded font-medium ${isPioneer ? 'bg-indigo-100 text-indigo-700 font-bold' : 'bg-slate-100 text-slate-500'}">${roleBadgeStr}</span>
+                        <span class="text-[10px] px-1.5 py-0.2 rounded font-medium ${isPioneer ? 'bg-emerald-100 text-emerald-800 font-bold' : 'bg-slate-100 text-slate-500'}">${roleBadgeStr}</span>
                     </td>
                     <td class="p-3">${inputCellHTML}</td>
                     <td class="p-3">${creditCellHTML}</td>
                     <td class="p-3">
-                        <input type="text" value="${v.study || ''}" onchange="setVolunteerData('${ym}', '${m.name}', 'study', this.value)" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="연구">
+                        <input type="text" value="${v.study || ''}" onchange="setVolunteerData('${ym}', '${m.name}', 'study', this.value)" class="w-full border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="연구">
                     </td>
                     <td class="p-3 min-w-[220px]">
-                        <input type="text" value="${v.memo || ''}" onchange="setVolunteerData('${ym}', '${m.name}', 'memo', this.value)" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="비고 입력">
+                        <input type="text" value="${v.memo || ''}" onchange="setVolunteerData('${ym}', '${m.name}', 'memo', this.value)" class="w-full border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="비고 입력">
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1194,18 +1194,18 @@
                 const achievementRate = Math.min(100, Math.round((grandTotal / targetHours) * 100));
 
                 const card = document.createElement('div');
-                card.className = "bg-white p-3 rounded-lg border border-indigo-100 shadow-sm space-y-1.5";
+                card.className = "bg-white p-3.5 rounded-xl border border-emerald-100 shadow-sm space-y-1.5";
                 card.innerHTML = `
                     <div class="flex justify-between items-center">
                         <span class="font-bold text-slate-800 text-sm">${p.name}</span>
-                        <span class="text-xs font-bold ${grandTotal >= targetHours ? 'text-emerald-600' : 'text-indigo-600'}">${grandTotal} 시간</span>
+                        <span class="text-xs font-bold ${grandTotal >= targetHours ? 'text-emerald-700' : 'text-teal-600'}">${grandTotal} 시간</span>
                     </div>
                     <div class="text-[11px] text-slate-500 flex justify-between">
                         <span>봉사: ${totalActual}h / 고려: ${totalCredit}h</span>
                         <span>목표: ${targetHours}h (${achievementRate}%)</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                        <div class="bg-indigo-600 h-2 rounded-full transition-all" style="width: ${achievementRate}%"></div>
+                        <div class="bg-emerald-600 h-2 rounded-full transition-all" style="width: ${achievementRate}%"></div>
                     </div>
                 `;
                 statsContent.appendChild(card);
@@ -1241,11 +1241,11 @@
                 let creditStr = "-";
 
                 if (isPioneer) {
-                    timeStr = v.hours ? `<span class="font-bold text-indigo-600">${v.hours}h</span>` : `<span class="text-slate-400">0h</span>`;
-                    creditStr = v.creditHours ? `<span class="font-bold text-amber-600">${v.creditHours}h</span>` : `<span class="text-slate-300">-</span>`;
+                    timeStr = v.hours ? `<span class="font-bold text-emerald-700">${v.hours}h</span>` : `<span class="text-slate-400">0h</span>`;
+                    creditStr = v.creditHours ? `<span class="font-bold text-teal-700">${v.creditHours}h</span>` : `<span class="text-slate-300">-</span>`;
                 } else {
                     timeStr = v.participated 
-                        ? `<span class="font-semibold text-emerald-600">참여</span>` 
+                        ? `<span class="font-semibold text-emerald-700">참여</span>` 
                         : `<span class="text-slate-400">미참여</span>`;
                     creditStr = `<span class="text-slate-300">-</span>`;
                 }
@@ -1419,15 +1419,15 @@
                 tr.className = "hover:bg-slate-50 transition";
                 tr.innerHTML = `
                     <td class="p-3 text-center text-xs text-slate-400">${idx + 1}</td>
-                    <td class="p-3 font-bold text-indigo-900 whitespace-nowrap">${item.target || '-'}</td>
+                    <td class="p-3 font-bold text-emerald-950 whitespace-nowrap">${item.target || '-'}</td>
                     <td class="p-3 text-slate-700 whitespace-nowrap">${item.visitor1 || '-'}</td>
                     <td class="p-3 text-slate-700 whitespace-nowrap">${item.visitor2 || '-'}</td>
                     <td class="p-3 text-center whitespace-nowrap">${lastDateStr}</td>
                     <td class="p-3 text-center whitespace-nowrap">${dateBadge}</td>
                     <td class="p-3 text-xs text-slate-700 leading-relaxed whitespace-pre-wrap">${item.memo || '-'}</td>
                     <td class="p-3 text-center whitespace-nowrap">
-                        <button onclick="shareShepherdingRecord('${item.id}')" class="text-emerald-600 hover:text-emerald-800 p-1 mr-1" title="방문 요약 공유"><i class="fa-solid fa-share-nodes"></i></button>
-                        <button onclick="openShepherdingModal('${item.id}')" class="text-indigo-600 hover:text-indigo-800 p-1 mr-1" title="수정"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="shareShepherdingRecord('${item.id}')" class="text-emerald-700 hover:text-emerald-900 p-1 mr-1" title="방문 요약 공유"><i class="fa-solid fa-share-nodes"></i></button>
+                        <button onclick="openShepherdingModal('${item.id}')" class="text-teal-700 hover:text-teal-900 p-1 mr-1" title="수정"><i class="fa-solid fa-pen"></i></button>
                         <button onclick="deleteShepherdingRecord('${item.id}')" class="text-rose-500 hover:text-rose-700 p-1" title="삭제"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
@@ -1584,7 +1584,7 @@
             if (!appData.publication) appData.publication = {};
             if (!appData.publication[ym]) appData.publication[ym] = {};
 
-            let headerHTML = `<tr class="bg-slate-100 border-b border-slate-200 text-slate-600 uppercase tracking-wider">
+            let headerHTML = `<tr class="bg-emerald-50/70 border-b border-emerald-100 text-emerald-900 uppercase tracking-wider">
                 <th class="p-3 w-12 text-center">No</th>
                 <th class="p-3 w-28">대표 성원</th>`;
             (appData.pubTypes || []).forEach(pt => {
@@ -1603,10 +1603,10 @@
                     let count = appData.publication[ym][m.name][pt] || 0;
                     trHTML += `
                         <td class="p-3 text-center">
-                            <div class="inline-flex items-center gap-1 border border-slate-200 rounded-lg p-1 bg-slate-50">
-                                <button type="button" onclick="updatePubCount('${ym}', '${m.name}', '${pt}', -1)" class="w-6 h-6 rounded bg-white border border-slate-200 hover:bg-slate-100 text-slate-600 text-xs font-bold shadow-sm">-</button>
+                            <div class="inline-flex items-center gap-1 border border-slate-200 rounded-xl p-1 bg-slate-50">
+                                <button type="button" onclick="updatePubCount('${ym}', '${m.name}', '${pt}', -1)" class="w-6 h-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-600 text-xs font-bold shadow-sm">-</button>
                                 <span class="w-7 text-center text-xs font-semibold text-slate-700">${count}</span>
-                                <button type="button" onclick="updatePubCount('${ym}', '${m.name}', '${pt}', 1)" class="w-6 h-6 rounded bg-white border border-slate-200 hover:bg-slate-100 text-indigo-600 text-xs font-bold shadow-sm">+</button>
+                                <button type="button" onclick="updatePubCount('${ym}', '${m.name}', '${pt}', 1)" class="w-6 h-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-emerald-700 text-xs font-bold shadow-sm">+</button>
                             </div>
                         </td>
                     `;
